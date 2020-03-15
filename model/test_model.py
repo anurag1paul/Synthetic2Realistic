@@ -47,7 +47,7 @@ class TestModel(BaseModel):
 
         with torch.no_grad():
             self.img_s2t = self.net_s2t.forward(self.img_s)
-            self.lab_s_g = self.net_img2task.forward(self.img_s2t)
+            self.lab_s_g = self.net_img2task.forward(self.img_s2t[-1])
             self.lab_t_g = self.net_img2task.forward(self.img_t)
 
     # save_results
