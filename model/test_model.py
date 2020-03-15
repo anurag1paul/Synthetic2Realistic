@@ -62,12 +62,12 @@ class TestModel(BaseModel):
             lab_fake_source = util.tensor2im(self.lab_s_g[-1].data[i])
             lab_fake_target = util.tensor2im(self.lab_t_g[-1].data[i])
 
-            #visuals = OrderedDict([('img_s', img_source), ('img_s2t', img_source2target)])
-            #print('process image ......%s' % img_source_paths[0])
-            #visualizer.save_images(wed_page, visuals, img_source_paths)
+            visuals = OrderedDict([('pred', lab_fake_source)])
+            print('process image ......%s' % img_source_paths[0])
+            visualizer.save_images(wed_page, visuals, img_source_paths, use_full=True)
             img_source_paths.pop(0)
 
-            visuals = OrderedDict([('vkitti', lab_fake_source), ('kitti', lab_fake_target)])
+            visuals = OrderedDict([('pred', lab_fake_target)])
             print('process image ......%s' % img_target_paths[0])
             visualizer.save_images(wed_page, visuals, img_target_paths)
             img_target_paths.pop(0)
