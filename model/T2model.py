@@ -13,8 +13,8 @@ class T2NetModel(BaseModel):
     def initialize(self, opt):
         BaseModel.initialize(self, opt)
 
-        self.loss_names = ['img_rec', 'img_G', 'img_D', 'lab_s', 'lab_t', 'f_G', 'f_D', 'lab_smooth']
-        self.visual_names = ['img_s', 'img_t', 'lab_s', 'lab_t', 'img_s2t', 'img_t2t', 'lab_s_g', 'lab_t_g']
+        self.loss_names = ['img_rec', 'img_G', 'img_D', 'lab_s', 'f_G', 'f_D', 'lab_smooth']
+        self.visual_names = ['img_s', 'img_t', 'lab_s', 'img_s2t', 'img_t2t', 'lab_s_g', 'lab_t_g']
 
         if self.isTrain:
             self.model_names = ['img2task', 's2t', 'img_D', 'f_D']
@@ -64,22 +64,23 @@ class T2NetModel(BaseModel):
         self.input = input
         self.img_source = input['img_source']
         self.img_target = input['img_target']
+        
         if self.isTrain:
             self.lab_source = input['lab_source']
-            self.lab_target = input['lab_target']
+            #self.lab_target = input['lab_target']
 
         if len(self.gpu_ids) > 0:
-            self.img_source = self.img_source.cuda(self.gpu_ids[0], async=True)
-            self.img_target = self.img_target.cuda(self.gpu_ids[0], async=True)
+            self.img_source = self.img_source.cuda()
+            self.img_target = self.img_target.cuda()
             if self.isTrain:
-                self.lab_source = self.lab_source.cuda(self.gpu_ids[0], async=True)
-                self.lab_target = self.lab_target.cuda(self.gpu_ids[0], async=True)
+                self.lab_source = self.lab_source.cuda()
+                #self.lab_target = self.lab_target.cuda()
 
     def forward(self):
         self.img_s = Variable(self.img_source)
         self.img_t = Variable(self.img_target)
         self.lab_s = Variable(self.lab_source)
-        self.lab_t = Variable(self.lab_target)
+        #self.lab_t = Variable(self.lab_target)
 
     def backward_D_basic(self, netD, real, fake):
 

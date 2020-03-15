@@ -52,7 +52,7 @@ def get_scheduler(optimizer, opt):
     return scheduler
 
 
-def init_weights(net, init_type='normal', gain=0.02):
+def init_weights(net, init_type='normal', gain=1.2):
     def init_func(m):
         classname = m.__class__.__name__
         if hasattr(m, 'weight') and (classname.find('Conv') != -1 or classname.find('Linear') != -1):
@@ -72,7 +72,7 @@ def init_weights(net, init_type='normal', gain=0.02):
             init.uniform_(m.weight.data, 1.0, gain)
             init.constant_(m.bias.data, 0.0)
 
-    print('initialize network with %s' % init_type)
+    # print('initialize network with %s' % init_type)
     net.apply(init_func)
 
 
@@ -80,17 +80,16 @@ def print_network(net):
     num_params = 0
     for param in net.parameters():
         num_params += param.numel()
-    print(net)
+    # print(net)
     print('total number of parameters: %.3f M' % (num_params / 1e6))
 
 
 def init_net(net, init_type='normal', gpu_ids=[]):
 
     print_network(net)
-
     if len(gpu_ids) > 0:
-        assert(torch.cuda.is_available())
-        net = torch.nn.DataParallel(net, gpu_ids)
+        # assert(torch.cuda.is_available())
+        net = torch.nn.DataParallel(net)
         net.cuda()
     init_weights(net, init_type)
     return net

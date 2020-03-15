@@ -16,7 +16,7 @@ def save_image(image_numpy, image_path):
     if image_numpy.shape[2] == 1:
         image_numpy = image_numpy.reshape(image_numpy.shape[0], image_numpy.shape[1])
 
-    imageio.imwrite(image_path, image_numpy)
+    imageio.imwrite(image_path, 256 * image_numpy.astype('uint16'))
 
 def mkdirs(paths):
     if isinstance(paths, list) and not isinstance(paths, str):
