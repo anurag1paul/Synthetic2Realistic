@@ -47,6 +47,7 @@ class TestModel(BaseModel):
 
         with torch.no_grad():
             self.img_s2t = self.net_s2t.forward(self.img_s)
+            self.lab_s_g = self.net_img2task.forward(self.img_s2t)
             self.lab_t_g = self.net_img2task.forward(self.img_t)
 
     # save_results
@@ -58,6 +59,7 @@ class TestModel(BaseModel):
             img_source = util.tensor2im(self.img_s.data[i])
             img_target = util.tensor2im(self.img_t.data[i])
             img_source2target = util.tensor2im(self.img_s2t[-1].data[i])
+            lab_fake_source = util.tensor2im(self.lab_s_g[-1].data[i])
             lab_fake_target = util.tensor2im(self.lab_t_g[-1].data[i])
 
             #visuals = OrderedDict([('img_s', img_source), ('img_s2t', img_source2target)])
@@ -65,7 +67,7 @@ class TestModel(BaseModel):
             #visualizer.save_images(wed_page, visuals, img_source_paths)
             img_source_paths.pop(0)
 
-            visuals = OrderedDict([('img_t', img_target), ('lab_t_g', lab_fake_target)])
+            visuals = OrderedDict([('vkitti', lab_fake_source), ('kitti', lab_fake_target)])
             print('process image ......%s' % img_target_paths[0])
             visualizer.save_images(wed_page, visuals, img_target_paths)
             img_target_paths.pop(0)
