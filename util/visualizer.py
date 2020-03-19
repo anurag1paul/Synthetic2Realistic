@@ -5,6 +5,7 @@ import time
 from . import util
 from . import html
 
+
 class Visualizer():
     def __init__(self, opt):
         # self.opt = opt
@@ -118,17 +119,10 @@ class Visualizer():
             log_file.write('%s\n' % message)
 
     # save image to the disk
-    def save_images(self, webpage, visuals, image_path, use_full=False):
+    def save_images(self, webpage, visuals, image_path):
         image_dir = webpage.get_image_dir()
         short_path = ntpath.basename(image_path[0])
         name = os.path.splitext(short_path)[0]
-
-        dir_path = ntpath.dirname(image_path[0])
-
-        if use_full:
-            image_dir = os.path.join(image_dir, dir_path)
-            if not os.path.exists(image_dir):
-                os.makedirs(image_dir)
 
         webpage.add_header(name)
         ims = []
