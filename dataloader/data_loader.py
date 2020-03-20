@@ -14,8 +14,8 @@ class CreateDataset(data.Dataset):
     def initialize(self, opt):
         self.opt = opt
 
-        self.img_source_paths, self.img_source_size = make_dataset(opt.img_source_file)
-        self.img_target_paths, self.img_target_size = make_dataset(opt.img_target_file)
+        self.img_source_paths, self.img_source_size = make_dataset(opt.img_source_file, opt.source_dir)
+        self.img_target_paths, self.img_target_size = make_dataset(opt.img_target_file, opt.target_dir)
 
         if self.opt.isTrain:
             self.lab_source_paths, self.lab_source_size = make_dataset(opt.lab_source_file)
