@@ -18,7 +18,7 @@ class CreateDataset(data.Dataset):
         self.img_target_paths, self.img_target_size = make_dataset(opt.img_target_file, opt.target_dir)
 
         if self.opt.isTrain:
-            self.lab_source_paths, self.lab_source_size = make_dataset(opt.lab_source_file)
+            self.lab_source_paths, self.lab_source_size = make_dataset(opt.lab_source_file, opt.source_dir)
             # for visual results, not for training
             #self.lab_target_paths, self.lab_target_size = make_dataset(opt.lab_target_file)
 

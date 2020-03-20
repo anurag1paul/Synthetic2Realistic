@@ -1,1 +1,1 @@
-python3 test.py --img_source_file datasplit/vkitti-train.txt --img_target_file datasplit/kitti_train.txt --lab_source_file datasplit/vkitti-label.txt --name pretrained --model test --gpu_ids 0,1
+python3 test.py --source_dir ~/ --target_dir ~/ --img_source_file datasplit/vkitti-train.txt --img_target_file datasplit/kitti_train.txt --lab_source_file datasplit/vkitti-label.txt --name vkitti2kitti --model test --gpu_ids 0
